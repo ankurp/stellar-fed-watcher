@@ -1,0 +1,30 @@
+{
+  "name": "stellar-fed-watcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "lint": "eslint ."
+  },
+  "now": {
+    "env": {
+      "REDIS_URL": "@redis-url",
+      "EMAIL": "@email",
+      "PASSWORD": "@password"
+    }
+  },
+  "author": "Ankur Patel <ankur@encoredevlabs.com>",
+  "license": "ISC",
+  "dependencies": {
+    "micro": "^9.3.2",
+    "nodemailer": "^4.6.7",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "now-env": "^3.1.0",
+    "redis": "^2.8.0",
+    "stellar-sdk": "^0.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1"
+  }
+}
