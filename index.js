@@ -13,7 +13,7 @@ const closeStream = server.payments()
       const { to } = msg;
       client.get(to, function(err, email) {
         if (err) {
-          console.error(`Error with get request for ${to}`);
+          console.error('Error fetching from cache');
           return;
         }
         if (!email) return;

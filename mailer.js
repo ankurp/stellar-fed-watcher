@@ -15,12 +15,12 @@ const mailOptions = {
 };
 
 mailer.send = function(opts) {
-  mailer.sendMail(Object.assign(mailOptions, opts), function(error, info) {
+  mailer.sendMail(Object.assign(mailOptions, opts), function(error) {
     if (error) {
-      console.error(`Error sending email ${error}`);
-    } else {
-      console.log(`Email sent: ${info.response}`);
+      console.error('Error sending email');
+      return;
     }
+    console.log('Email sent');
   });
 };
 
