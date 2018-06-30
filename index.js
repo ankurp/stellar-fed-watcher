@@ -18,8 +18,9 @@ const closeStream = server.payments()
         }
         emails.forEach((email) => mailer.send({
           to: email,
-          text: `You received ${msg.amount} Stellar lumens from ${msg.from}
-          \nFor more details view here: https://horizon.stellar.org/transactions/${msg.transaction_hash}`
+          text: `You have received ${msg.amount} Stellar lumen(s) from ${msg.from}
+          \nFor more details view here: https://horizon.stellar.org/transactions/${msg.transaction_hash}
+          \nTo stop receiving these email please update the settings in your account on stellarfed.org`
         }));
       });
     }
