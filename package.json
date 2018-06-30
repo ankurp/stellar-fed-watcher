@@ -1,7 +1,7 @@
 {
   "name": "stellar-fed-watcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "Stellar Network Watcher that sends email to Federated account holder when payment is received",
   "main": "index.js",
   "scripts": {
     "start": "micro",
@@ -14,7 +14,7 @@
       "PASSWORD": "@password"
     }
   },
-  "author": "Ankur Patel <ankur@encoredevlabs.com>",
+  "author": "Ankur Patel <ankur@stellarfed.org> (https://stellarfed.org)",
   "license": "ISC",
   "dependencies": {
     "micro": "^9.3.2",
