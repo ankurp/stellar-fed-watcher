@@ -15,7 +15,7 @@ const mailOptions = {
 };
 
 mailer.send = function(opts) {
-  mailer.sendMail(Object.assign(mailOptions, opts), function(error) {
+  mailer.sendMail(Object.assign(mailOptions, opts), (error) => {
     if (error) {
       console.error('Error sending email');
       return;

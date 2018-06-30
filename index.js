@@ -2,8 +2,6 @@ require('now-env');
 const StellarSdk = require('stellar-sdk');
 const mailer = require('./mailer');
 const client = require('./cache');
-const START_INDEX = 0;
-const LAST_INDEX = -1;
 
 const server = new StellarSdk.Server('https://horizon.stellar.org');
 const closeStream = server.payments()
@@ -13,7 +11,7 @@ const closeStream = server.payments()
       if (msg.type !== 'payment') return;
 
       const { to } = msg;
-      client.lrange(to, START_INDEX, LAST_INDEX, (err, emails) => {
+      client.smembers(to, (err, emails) => {
         if (err) {
           console.error('Error fetching from cache');
           return;
