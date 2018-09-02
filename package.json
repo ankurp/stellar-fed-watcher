@@ -8,6 +8,8 @@
     "lint": "eslint ."
   },
   "now": {
+    "alias": "stellar-fed-watcher.now.sh",
+    "name": "stellar-fed-watcher",
     "env": {
       "REDIS_URL": "@redis-url",
       "EMAIL": "@email",
