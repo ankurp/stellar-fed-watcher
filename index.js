@@ -1,28 +1,23 @@
 require('now-env');
 const StellarSdk = require('stellar-sdk');
-const mailer = require('./mailer');
 const client = require('./cache');
+const accountHandler = require('./account');
+const getPaymentHandler = require('./payment');
 
-const server = new StellarSdk.Server('https://horizon.stellar.org');
-const closeStream = server.payments()
+const StellarDomain = process.env.NODE_ENV === 'production' ?
+  'https://horizon.stellar.org' :
+  'https://horizon-testnet.stellar.org';
+const server = new StellarSdk.Server(StellarDomain);
+const paymentHandler = getPaymentHandler(StellarDomain);
+const closeStream = server.operations()
   .cursor('now')
   .stream({
     onmessage: (msg) => {
-      if (msg.type !== 'payment') return;
-
-      const { to } = msg;
-      client.smembers(to, (err, emails) => {
-        if (err) {
-          console.error('Error fetching from cache');
-          return;
-        }
-        emails.forEach((email) => mailer.send({
-          to: email,
-          text: `You have received ${msg.amount} Stellar lumen(s) from ${msg.from}
-          \nFor more details view here: https://horizon.stellar.org/transactions/${msg.transaction_hash}
-          \nTo stop receiving these email please update the settings in your account on stellarfed.org`
-        }));
-      });
+      switch (msg.type) {
+        case 'payment': return paymentHandler(msg);
+        case 'create_account': return accountHandler(msg);
+        default: return false;
+      }
     }
   });
 

@@ -11,12 +11,15 @@
     "env": {
       "REDIS_URL": "@redis-url",
       "EMAIL": "@email",
-      "PASSWORD": "@password"
+      "PASSWORD": "@password",
+      "NEW_ACCOUNTS_CACHE_KEY": "@new-accounts-cache-key",
+      "SALT": "@salt"
     }
   },
   "author": "Ankur Patel <ankur@stellarfed.org> (https://stellarfed.org)",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "micro": "^9.3.2",
     "nodemailer": "^4.6.7",
     "nodemailer-smtp-transport": "^2.7.4",

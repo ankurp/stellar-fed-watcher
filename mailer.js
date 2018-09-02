@@ -10,14 +10,13 @@ const mailer = nodemailer.createTransport(smtpTransport({
 }));
 
 const mailOptions = {
-  from: 'ankur@stellarfed.org',
-  subject: 'Stellar payment received notification'
+  from: 'ankur@stellarfed.org'
 };
 
 mailer.send = function(opts) {
   mailer.sendMail(Object.assign(mailOptions, opts), (error) => {
     if (error) {
-      console.error('Error sending email');
+      console.error('Error sending email', opts);
       return;
     }
     console.log('Email sent');
