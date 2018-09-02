@@ -13,7 +13,8 @@
       "EMAIL": "@email",
       "PASSWORD": "@password",
       "NEW_ACCOUNTS_CACHE_KEY": "@new-accounts-cache-key",
-      "SALT": "@salt"
+      "SALT": "@salt",
+      "NODE_ENV": "production"
     }
   },
   "author": "Ankur Patel <ankur@stellarfed.org> (https://stellarfed.org)",
