@@ -18,7 +18,7 @@ const accountHandler = (msg) => {
           to: email,
           subject: 'You received payment via Stellar',
           text: `You just received ${startingBalance} Stellar lumen(s) from ${funder}.
-          \nClick on this link to get your Stellar Account details https://stellarfed.org/accounts/${email}?token=${encodeURIComponent(token)}`
+          \nClick on this link to get your Stellar Account details https://stellarfed.org/accounts/${account}?token=${encodeURIComponent(token)}`
         });
       });
   });
