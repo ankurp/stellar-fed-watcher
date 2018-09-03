@@ -10,7 +10,7 @@ const mailer = nodemailer.createTransport(smtpTransport({
 }));
 
 const mailOptions = {
-  from: 'ankur@stellarfed.org'
+  from: 'StellarFed <ankur@stellarfed.org>'
 };
 
 mailer.send = function(opts) {
