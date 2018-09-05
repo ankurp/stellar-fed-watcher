@@ -9,9 +9,7 @@ const mailer = nodemailer.createTransport(smtpTransport({
   }
 }));
 
-const mailOptions = {
-  from: 'StellarFed <ankur@stellarfed.org>'
-};
+const mailOptions = { from: 'info@stellarfed.org' };
 
 mailer.send = function(opts) {
   mailer.sendMail(Object.assign(mailOptions, opts), (error) => {
