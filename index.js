@@ -1,4 +1,3 @@
-require('now-env');
 const EventSource = require('eventsource');
 const client = require('./cache');
 const accountHandler = require('./account');
