@@ -4,6 +4,7 @@ const mailer = require('./mailer');
 
 const accountHandler = (msg) => {
   const { account, funder, starting_balance: startingBalance } = msg;
+  console.log(`ACCOUNTS: ${account} created with starting balance of ${startingBalance}`);
   client.hget(process.env.NEW_ACCOUNTS_CACHE_KEY, account, (err, email) => {
     if (err) {
       console.error('Error fetching from cache');
@@ -14,6 +15,7 @@ const accountHandler = (msg) => {
     }
     bcrypt.hash(account, process.env.SALT)
       .then((token) => {
+        console.log(`Sending account creation email to ${email} for acount ${account}`);
         mailer.send({
           to: email,
           subject: 'You received payment via Stellar',

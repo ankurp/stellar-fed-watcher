@@ -9,7 +9,7 @@ const StellarDomain = process.env.NODE_ENV === 'production' ?
   'https://horizon-testnet.stellar.org';
 const server = new StellarSdk.Server(StellarDomain);
 const paymentHandler = getPaymentHandler(StellarDomain);
-const closeStream = server.operations()
+const closeStream = server.payments()
   .cursor('now')
   .stream({
     onmessage: (msg) => {
