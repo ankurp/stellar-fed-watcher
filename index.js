@@ -1,5 +1,5 @@
 require('now-env');
-const StellarSdk = require('stellar-sdk');
+const EventSource = require('eventsource');
 const client = require('./cache');
 const accountHandler = require('./account');
 const getPaymentHandler = require('./payment');
@@ -7,22 +7,27 @@ const getPaymentHandler = require('./payment');
 const StellarDomain = process.env.NODE_ENV === 'production' ?
   'https://horizon.stellar.org' :
   'https://horizon-testnet.stellar.org';
-const server = new StellarSdk.Server(StellarDomain);
 const paymentHandler = getPaymentHandler(StellarDomain);
-const closeStream = server.payments()
-  .cursor('now')
-  .stream({
-    onmessage: (msg) => {
-      switch (msg.type) {
-        case 'payment': return paymentHandler(msg);
-        case 'create_account': return accountHandler(msg);
-        default: return false;
-      }
+const es = new EventSource(`${StellarDomain}/payments?cursor=now`);
+es.onmessage = (rawMessage) => {
+  try {
+    if (rawMessage.type !== 'message') return false;
+
+    const msg = JSON.parse(rawMessage.data);
+    switch (msg.type) {
+      case 'payment': return paymentHandler(msg);
+      case 'create_account': return accountHandler(msg);
+      default: return false;
     }
-  });
+  } catch (err) {
+    console.error(err);
+  }
+
+  return false;
+};
 
 process.on('SIGINT', () => {
-  closeStream();
+  es.close();
   client.quit();
 });
 

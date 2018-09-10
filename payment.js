@@ -6,9 +6,10 @@ const getPaymentHandler = (domain) => (msg) => {
     to: account,
     amount,
     from,
+    asset_code: assetCode,
     transaction_hash: transactionHash
   } = msg;
-  console.log(`PAYMENTS: ${account} received payment of ${amount}`);
+  console.log(`PAYMENTS: ${account} received payment of ${amount} ${assetCode}`);
   client.smembers(account, (err, emails) => {
     if (err) {
       console.error('Error fetching from cache');
@@ -19,7 +20,7 @@ const getPaymentHandler = (domain) => (msg) => {
       mailer.send({
         to: email,
         subject: 'You received payment via Stellar',
-        text: `You just received ${amount} Stellar lumen(s) from ${from}
+        text: `You just received ${amount} ${assetCode} from ${from}
         \nFor more details view here: ${domain}/transactions/${transactionHash}
         \nTo stop receiving these email please update the settings in your account on stellarfed.org`
       });

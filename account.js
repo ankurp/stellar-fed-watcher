@@ -4,7 +4,7 @@ const mailer = require('./mailer');
 
 const accountHandler = (msg) => {
   const { account, funder, starting_balance: startingBalance } = msg;
-  console.log(`ACCOUNTS: ${account} created with starting balance of ${startingBalance}`);
+  console.log(`ACCOUNTS: ${account} created with starting balance of ${startingBalance} XLM`);
   client.hget(process.env.NEW_ACCOUNTS_CACHE_KEY, account, (err, email) => {
     if (err) {
       console.error('Error fetching from cache');

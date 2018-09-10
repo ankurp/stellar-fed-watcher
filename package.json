@@ -7,18 +7,6 @@
     "start": "micro",
     "lint": "eslint ."
   },
-  "now": {
-    "alias": "stellar-fed-watcher.now.sh",
-    "name": "stellar-fed-watcher",
-    "env": {
-      "REDIS_URL": "@redis-url",
-      "EMAIL": "@email",
-      "PASSWORD": "@password",
-      "NEW_ACCOUNTS_CACHE_KEY": "@new-accounts-cache-key",
-      "SALT": "@salt",
-      "NODE_ENV": "production"
-    }
-  },
   "author": "Ankur Patel <ankur@stellarfed.org> (https://stellarfed.org)",
   "license": "ISC",
   "dependencies": {
@@ -26,9 +14,7 @@
     "micro": "^9.3.2",
     "nodemailer": "^4.6.7",
     "nodemailer-smtp-transport": "^2.7.4",
-    "now-env": "^3.1.0",
-    "redis": "^2.8.0",
-    "stellar-sdk": "^0.9.1"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "eslint": "^5.0.1"
