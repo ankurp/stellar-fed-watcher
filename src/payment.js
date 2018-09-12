@@ -7,7 +7,7 @@ const paymentHandler = (msg) => {
     to: account,
     amount,
     from,
-    asset_code: assetCode,
+    asset_code: assetCode = 'XLM',
     transaction_hash: transactionHash
   } = msg;
   console.log(`PAYMENTS: ${account} received payment of ${amount} ${assetCode}`);
