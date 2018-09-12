@@ -1,7 +1,8 @@
 const mailer = require('./mailer');
 const client = require('./cache');
+const StellarDomain = require('./domain');
 
-const getPaymentHandler = (domain) => (msg) => {
+const paymentHandler = (msg) => {
   const {
     to: account,
     amount,
@@ -21,11 +22,11 @@ const getPaymentHandler = (domain) => (msg) => {
         to: email,
         subject: 'You received payment via Stellar',
         text: `You just received ${amount} ${assetCode} from ${from}
-        \nFor more details view here: ${domain}/transactions/${transactionHash}
+        \nFor more details view here: ${StellarDomain}/transactions/${transactionHash}
         \nTo stop receiving these email please update the settings in your account on stellarfed.org`
       });
     });
   });
 };
 
-module.exports = getPaymentHandler;
+module.exports = paymentHandler;

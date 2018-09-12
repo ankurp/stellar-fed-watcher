@@ -1,34 +1,21 @@
-const EventSource = require('eventsource');
-const client = require('./cache');
-const accountHandler = require('./account');
-const getPaymentHandler = require('./payment');
+const numOfTransactionsProcessed = require('./src/watcher');
 
-const StellarDomain = process.env.NODE_ENV === 'production' ?
-  'https://horizon.stellar.org' :
-  'https://horizon-testnet.stellar.org';
-const paymentHandler = getPaymentHandler(StellarDomain);
-const es = new EventSource(`${StellarDomain}/payments?cursor=now`);
-es.onmessage = (rawMessage) => {
-  try {
-    if (rawMessage.type !== 'message') return false;
-
-    const msg = JSON.parse(rawMessage.data);
-    switch (msg.type) {
-      case 'payment': return paymentHandler(msg);
-      case 'create_account': return accountHandler(msg);
-      default: return false;
+module.exports = () => `<html>
+  <head><meta charset="UTF-8" /></head>
+  <style>
+    body { background: #333; text-align: center; }
+    main {
+      max-width: 320px;
+      margin: 20px auto 0;
+      border-radius: 2px;
+      background: #fff;
+      padding: 5px 20px;
     }
-  } catch (err) {
-    console.error(err);
-  }
-
-  return false;
-};
-
-process.on('SIGINT', () => {
-  es.close();
-  client.quit();
-});
-
-module.exports = () => 'StellarFed Account Watcher is Up and Watching';
-
+  </style>
+  <body>
+    <main>
+      <h1>StellarFed Watcher Up and Watching 👀</h1>
+      <p>${numOfTransactionsProcessed()} payment transactions processed</p>
+    </main>
+  </body>
+</html>`;

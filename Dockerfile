@@ -10,6 +10,6 @@ ADD package.json yarn.lock ./
 
 RUN yarn
 
-ADD index.js account.js cache.js mailer.js payment.js ./
+ADD index.js src/ ./
 
 CMD ["npm", "start"]
