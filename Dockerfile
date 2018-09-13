@@ -6,10 +6,11 @@ RUN npm install -g yarn@1.9.4
 
 WORKDIR /srv/stellar-fed-watcher
 
-ADD package.json yarn.lock ./
+COPY package.json yarn.lock ./
 
 RUN yarn
 
-ADD index.js src/ ./
+COPY index.js ./
+COPY src/ ./src
 
 CMD ["npm", "start"]
