@@ -10,7 +10,6 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY index.js ./
 COPY src/ ./src
 
 CMD ["npm", "start"]
