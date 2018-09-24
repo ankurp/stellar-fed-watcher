@@ -15,6 +15,7 @@ const paymentHandler = (msg) => {
     asset_code: assetCode = 'XLM'
   } = msg;
   console.log(`PAYMENTS: ${account} received payment of ${amount} ${assetCode}`);
+  client.incr('TRANSACTIONS_PROCESSED');
   client.smembers(account, (err, emails) => {
     if (err) {
       console.error('Error fetching from cache');

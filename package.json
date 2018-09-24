@@ -2,7 +2,7 @@
   "name": "stellar-fed-watcher",
   "version": "1.0.0",
   "description": "Stellar Network Watcher that sends email to Federated account holder when payment is received",
-  "main": "index.js",
+  "main": "src/watcher.js",
   "scripts": {
     "start": "micro",
     "lint": "eslint ."
