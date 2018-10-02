@@ -1,20 +1,15 @@
-const EventSource = require('eventsource');
+const StellarSdk = require('stellar-sdk');
 const client = require('./cache');
 const StellarDomain = require('./domain');
+const server = new StellarSdk.Server(StellarDomain);
 
-const stellarStream = (onMessage) => {
-  const es = new EventSource(`${StellarDomain}/payments?cursor=now`);
-  es.onmessage = (rawMessage) => {
-    try {
-      if (rawMessage.type !== 'message') return;
-      onMessage(JSON.parse(rawMessage.data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
+const stellarStream = (onmessage) => {
+  const closeStream = server.payments()
+    .cursor('now')
+    .stream({ onmessage });
 
   process.on('SIGINT', () => {
-    es.close();
+    closeStream();
     client.quit();
   });
 };

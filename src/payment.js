@@ -1,14 +1,11 @@
 const mailer = require('./mailer');
 const client = require('./cache');
-const fetch = require('./fetch');
+const StellarDomain = require('./domain');
 
 const paymentHandler = (msg) => {
   const {
-    _links: {
-      transaction: {
-        href: transactionUrl
-      }
-    },
+    transaction,
+    transaction_hash: transactionHash,
     to: account,
     amount,
     from,
@@ -21,7 +18,8 @@ const paymentHandler = (msg) => {
       console.error('Error fetching from cache');
       return;
     }
-    fetch(transactionUrl).then(({ memo, memo_type: memoType }) => {
+
+    transaction().then(({ memo, memo_type: memoType }) => {
       const senderInfo = [from];
       if (memoType === 'text' && memo) {
         senderInfo.push(`with memo "${memo}"`);
@@ -33,10 +31,8 @@ const paymentHandler = (msg) => {
           to: email,
           subject: 'You received payment via Stellar',
           text: `You just received ${amount} ${assetCode} from ${senderInfo.join(' ')}
-
-          For more details view here: ${transactionUrl}
-
-          To stop receiving these email please update the settings in your account on stellarfed.org`
+          \nFor more details view here: ${StellarDomain}/transactions/${transactionHash}
+          \nTo stop receiving these email please update the settings in your account on stellarfed.org`
         });
       });
     });
