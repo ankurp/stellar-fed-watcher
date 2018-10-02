@@ -3,17 +3,21 @@ const client = require('./cache');
 const mailer = require('./mailer');
 
 const accountHandler = (msg) => {
-  const { account, funder, starting_balance: startingBalance } = msg;
+  const {
+    account,
+    funder,
+    starting_balance: startingBalance
+  } = msg;
   console.log(`ACCOUNTS: ${account} created with starting balance of ${startingBalance} XLM`);
   client.incr('TRANSACTIONS_PROCESSED');
   client.hget(process.env.NEW_ACCOUNTS_CACHE_KEY, account, (err, email) => {
     if (err) {
-      console.error('Error fetching from cache');
+      console.error(`Error fetching info for ${account}`, err);
       return;
     }
-    if (!email) {
-      return;
-    }
+
+    if (!email) return;
+
     bcrypt.hash(account, process.env.SALT)
       .then((token) => {
         console.log(`Sending account creation email to ${email} for acount ${account}`);

@@ -15,7 +15,7 @@ const paymentHandler = (msg) => {
   client.incr('TRANSACTIONS_PROCESSED');
   client.smembers(account, (err, emails) => {
     if (err) {
-      console.error('Error fetching from cache');
+      console.error(`Error fetching email(s) for ${account}`, err);
       return;
     }
 
