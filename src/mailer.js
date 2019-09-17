@@ -1,24 +1,10 @@
-const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
-const mailer = nodemailer.createTransport(smtpTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD
-  }
-}));
-
+const sgMail = require('@sendgrid/mail');
 const mailOptions = { from: 'info@stellarfed.org' };
 
-mailer.send = function(opts) {
-  mailer.sendMail(Object.assign(mailOptions, opts), (error) => {
-    if (error) {
-      console.error('Error sending email', opts);
-      return;
-    }
-    console.log('Email sent');
-  });
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+sgMail.sendMail = function(opts) {
+  sgMail.send(Object.assign(mailOptions, opts));
 };
 
-module.exports = mailer;
+module.exports = sgMail;

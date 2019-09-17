@@ -10,14 +10,13 @@
   "author": "Ankur Patel <ankur@stellarfed.org> (https://stellarfed.org)",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.0",
-    "micro": "^9.3.2",
-    "nodemailer": "^4.6.7",
-    "nodemailer-smtp-transport": "^2.7.4",
+    "@sendgrid/mail": "^6.4.0",
+    "bcrypt": "^3.0.6",
+    "micro": "^9.3.4",
     "redis": "^2.8.0",
-    "stellar-sdk": "^0.11.0"
+    "stellar-sdk": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^5.0.1"
+    "eslint": "^6.4.0"
   }
 }

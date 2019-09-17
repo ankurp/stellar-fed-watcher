@@ -27,7 +27,7 @@ const paymentHandler = (msg) => {
 
       emails.forEach((email) => {
         console.log(`Sending payment notification email to ${email} for account ${account}`);
-        mailer.send({
+        mailer.sendMail({
           to: email,
           subject: 'You received payment via Stellar',
           text: `You just received ${amount} ${assetCode} from ${senderInfo.join(' ')}
