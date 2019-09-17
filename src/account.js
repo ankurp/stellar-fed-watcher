@@ -21,7 +21,7 @@ const accountHandler = (msg) => {
     bcrypt.hash(account, process.env.SALT)
       .then((token) => {
         console.log(`Sending account creation email to ${email} for acount ${account}`);
-        mailer.send({
+        mailer.sendMail({
           to: email,
           subject: 'You received payment via Stellar',
           text: `You just received ${startingBalance} Stellar lumen(s) from ${funder}.
