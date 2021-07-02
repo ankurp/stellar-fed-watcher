@@ -14,7 +14,7 @@
     "bcrypt": "^3.0.6",
     "micro": "^9.3.4",
     "redis": "^2.8.0",
-    "stellar-sdk": "^3.0.1"
+    "stellar-sdk": "^8.2.3"
   },
   "devDependencies": {
     "eslint": "^6.4.0"
